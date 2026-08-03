@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lengua Totonaca-Traductor | Totonaco - Español</title>
+<meta name="description" content="Traductor gratuito Lengua Totonaca a Español y Español a Totonaco. Diccionario de la Sierra Norte de Puebla.">
+<style>
+body{margin:0;font-family:system-ui;background:#FFF8E1}
+.header{background:#7A3E1F;color:white;padding:25px 15px;text-align:center}
+.header h1{margin:0;font-size:26px}
+.header p{margin:8px 0 0;font-size:14px;opacity:.9;line-height:1.4}
+.wrap{max-width:650px;margin:auto;padding:15px}
+.tabs{display:flex;gap:10px;margin:15px 0}
+.tab{flex:1;padding:13px;border-radius:12px;border:2px solid #7A3E1F;background:white;text-align:center;font-weight:bold;cursor:pointer}
+.tab.activo{background:#7A3E1F;color:white}
+.box{background:white;border-radius:16px;padding:15px;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+input{width:100%;padding:16px;font-size:18px;border-radius:12px;border:2px solid #ddd;box-sizing:border-box}
+#res{margin-top:15px}
+.fila{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eee;gap:10px}
+.tot{font-weight:bold;color:#2E7D32;font-size:18px}
+.esp{color:#333}
+.msg{text-align:center;color:#777;padding:25px 10px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.btn{padding:14px;border:none;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer}
+.btn-w{background:#25D366;color:white}
+.btn-g{background:#eee}
+.footer{text-align:center;margin:25px 0;color:#999;font-size:12px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Lengua Totonaca-Traductor</h1>
+<p>Kachiken Totonaco ↔ Español<br>Diccionario de la Sierra Norte de Puebla, Veracruz<br>Proyecto comunitario para preservar el Tutunakú</p>
+</div>
+<div class="wrap">
+<div class="tabs">
+<div id="b1" class="tab activo" onclick="cambiar('tot-esp')">Totonaco → Español</div>
+<div id="b2" class="tab" onclick="cambiar('esp-tot')">Español → Totonaco</div>
+</div>
+<div class="box">
+<input id="q" type="text" placeholder="Escribe: skalhni', hola, tiene, agua, fuego..." oninput="buscar()" autofocus>
+<div id="res" class="msg">Escribe una palabra para traducir 👆<br><br>Prueba: skalhni', kalh, chuchut, lhkuy</div>
+</div>
+<div class="btns">
+<button class="btn btn-w" onclick="compartir()">📲 Compartir</button>
+<button class="btn btn-g" onclick="agregar()">➕ Agregar palabra</button>
+</div>
+<div class="footer">
+Lengua Totonaca Traductor © 2026<br>
+Hecho en Puebla con ❤️<br>
+Palabras: 35 y creciendo<br>
+¿Falta una palabra? WhatsApp: agrega tu palabra
+</div>
+</div>
+<script>
+let dir="tot-esp";
+const dic=[
+{tot:"skalhni",esp:"hola"},{tot:"paxtah katsinilh",esp:"gracias"},{tot:"Lhakah kuwininpath",esp:"buenos días"},{tot:"Lhakga kgotunumpath",esp:"buenas tardes"},{tot:"tsesun path",esp:"buenas noches"}
+{tot:"paxkiyaw",esp:"amamos, quereremos"},{tot:"kgalh",esp:"tiene, tuvo, en su poder"},{tot:"Lhakg katsan",esp:"estima, tuvo, recela, codicia"},{tot:"lhakgatiye'",esp:"gusta, desea, le encanta"}
+{tot:"chikeh",esp:"casa, hogar"},{tot:"chuchuth",esp:"agua"},{tot:"chixkoh",esp:"señor, marido, esposo, hombre"},{tot:"chichéh",esp:"perro"},{tot:"chaxpán",esp:"chamorro"},{tot:"chalhman",esp:"alto, grande, mayor"}
+{tot:"lhkuy",esp:"quema, arde, fuego"},{tot:"papáh",esp:"luna"},,{tot:"chichinéh",esp:"sol"},{tot:"sta'ku",esp:"estrella"},{tot:"akgapun",esp:"cielo"},{tot:"puklhneh",esp:"nubes"},{tot:"sen",esp:"lluvia"}
+{tot:"puskath",esp:"mujer"},{tot:"chixkuh",esp:"hombre"},,{tot:"lhitatawalhath",esp:"novia/o"},{tot:"tsaquin",esp:"prometida/o"},{tot:"tlath",esp:"padre,papá"},{tot:"tseh",esp:"madres, mamá"}
+{tot:"kaman",esp:"niños, hijos"},{tot:"tsumath",esp:"niña"},{tot:"puxnamath'",esp:"sobrinos"},{tot:"skgatah'",esp:"bebe, tierno, crio, cachorro,polluelo"},{tot:"tahjatath'",esp:"embarazada, enferma"}
+{tot:"lakgchajan",esp:"persona, gente"},{tot:"tachiwin",esp:"palabra, idioma"},
+{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},{tot:"tlhakgtlah",esp:"elote"},{tot:"Akxiweth",esp:"jilote"},{tot:"Xawath",esp:"milpa"}
+{tot:"xanath",esp:"flor"},{tot:"kiwe",esp:"árbol"},,{tot:"kahkiwen",esp:"bosque"},{tot:"kalhinakgath",esp:"selva"},{tot:"kah sakgatneh",esp:"pastizal"}
+{tot:"tiyath",esp:"tierra"},{tot:"on",esp:"viento"},,{tot:"lhuyath",esp:"fuego, fogon, fogata, mechero"},{tot:"chiwish",esp:"piedra, roca"},{tot:"palhmah",esp:"plantas, hiervas,maleza"}
+{tot:"tahlakgapasnih",esp:"aplausos, festejo, celebrar},{tot:"paxnih",esp:"cerdo"},
+{tot:"kuh",esp:"corazón"},{tot:"makan",esp:"mano"},{tot:"kuh smun",esp:"pecho"},{tot:"lhakapum",esp:"rostro, cara"},{tot:"tantun",esp:"pie"},{tot:"makxpam",esp:"brazo"}
+{tot:"lhkagnan'",esp:"calor"},{tot:"longneh",esp:"frío"},
+{tot:"lhkakgatsey",esp:"ojos cerrados"},{tot:"tlan",esp:"bueno, bien"},
+{tot:"an",esp:"ir,va, se mueve"},{tot:"min",esp:"venir"},
+{tot:"kachikin",esp:"casas, pueblo, municipio"},{tot:"sipih",esp:"cerro"},
+{tot:"lakgpatachuwin",esp:"historia"},{tot:"takatsin",esp:"conocimiento, sabiduria"},
+{tot:"mítseh",esp:"gato"},{tot:"wakax",esp:"vaca, ganado"},{tot:"lhapinith",esp:"jaguar"},{tot:"wekgneh",esp:"zorro"},{tot:"jukih",esp:"venado"}
+];
+function cambiar(m){dir=m;
+document.getElementById("b1").classList.toggle("activo",m=="tot-esp");
+document.getElementById("b2").classList.toggle("activo",m=="esp-tot");
+document.getElementById("q").placeholder=m=="tot-esp"?"Escribe en totonaco: skalhni...":"Escribe en español: hola, casa...";
+document.getElementById("q").value="";buscar();
+}
+function buscar(){
+let t=document.getElementById("q").value.toLowerCase().trim();
+let r=document.getElementById("res");
+if(!t){r.innerHTML='<div class="msg">Escribe una palabra para traducir 👆<br><br>Prueba: skalhni, chikeh, chuchut, lhkuy</div>';return;}
+let f=dic.filter(d=>d.tot.includes(t)||d.esp.includes(t));
+if(f.length==0){r.innerHTML='<div class="msg">❌ No encontré "'+t+'"<br><br>¿La quieres agregar? Pulsa ➕ Agregar palabra</div>';return;}
+let h="";f.slice(0,30).forEach(d=>{
+if(dir=="tot-esp") h+=`<div class="fila"><span class="tot">${d.tot}</span><span class="esp">${d.esp}</span></div>`;
+else h+=`<div class="fila"><span class="esp">${d.esp}</span><span class="tot">${d.tot}</span></div>`;
+});r.innerHTML=h;
+}
+function compartir(){
+let u=location.href;
+window.open("https://wa.me/?text=Mira este traductor de Lengua Totonaca: "+u,"_blank");
+}
+function agregar(){
+let p=prompt("Escribe la palabra en Totonaco:");
+let s=prompt("Escribe su significado en Español:");
+if(p&&s){alert("Gracias! Agrega esto en tu diccionario:\\n{tot:\\""+p+"\\",esp:\\""+s+"\\"},\\nPor ahora cópialo y lo agregas al código.");}
+}
+</script>
+</body>
+</html>
