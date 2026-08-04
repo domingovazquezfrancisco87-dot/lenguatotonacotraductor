@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="0jL_UTHqy_bqemgECamGBLBVWnW5rdqDR3KvQ2uuQ5k" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lengua Totonaca Traductor |  Palabras Huehuetla Cuetzalan Olintla con Audio Real</title>
+<title>Lengua Totonaca Traductor | Palabras Huehuetla Cuetzalan Olintla con Audio Real</title>
 <meta name="description" content="Lengua Totonaca Traductor Palabras Huehuetla Cuetzalan Olintla con audios reales de abuelos. Traductor Totonaco Español gratuito.">
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#FFFBEB}
@@ -14,7 +14,7 @@ main{max-width:750px;margin:auto;padding:10px}
 .tabs{display:flex;gap:6px;margin:12px 0}
 .tab{flex:1;padding:11px;border-radius:10px;border:2px solid #7A3E1F;background:white;text-align:center;font-weight:800;cursor:pointer;font-size:13px}
 .tab.activo{background:#7A3E1F;color:white}
-.card{background:white;border-radius:16px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.card{background:white;border-radius:16px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:12px}
 input{width:100%;padding:15px;font-size:17px;border-radius:10px;border:2px solid #E7D9C0}
 .row{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:10px 3px;border-bottom:1px solid #F2E9D6}
 .tot{font-weight:800;color:#1B5E20;font-size:15px;display:flex;align-items:center;gap:6px}
@@ -25,28 +25,21 @@ input{width:100%;padding:15px;font-size:17px;border-radius:10px;border:2px solid
 .msg{text-align:center;color:#8a7a63;padding:18px 6px;line-height:1.5;font-size:13px}
 .chips{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:8px 0}
 .chip{background:#FFF3C4;border:1px solid #F2D48D;border-radius:999px;padding:5px 9px;font-size:11px;cursor:pointer}
-.guia{background:#E8F5E9;border:1px dashed #7A3E1F;border-radius:12px;padding:12px;margin:12px 0;font-size:12px;line-height:1.5}
 footer{text-align:center;color:#9c8c74;font-size:10px;padding:18px 8px}
 </style>
 </head>
 <body>
 <header>
 <h1>🌽 Lengua Totonaca Traductor</h1>
-<p> PALABRAS · Huehuetla · Cuetzalan · Olintla · Tutunakú<br>🔊 Audios reales de personas + abuelos + niños + TTS</p>
+<p>PALABRAS · Huehuetla · Cuetzalan · Olintla · Tutunakú<br>🔊 Audios reales de personas + abuelos + niños + TTS</p>
 </header>
 <main>
-<div class="card"><div class="tutu">Tlakgtlah</div><div class="esp">🌽 elote</div><button onclick="play('tlakgtlah')">🔊 Escuchar voz real</button></div>
-<div class="card"><div class="tutu">Kachiken</div><div class="esp">🏘️ pueblo</div><button onclick="play('kachiken')">🔊 Escuchar voz real</button></div>
-<div class="card"><div class="tutu">Paxkgastsinalh</div><div class="esp">🙏 gracias</div><button onclick="play('paxkgastsinalh')">🔊 Escuchar voz real</button></div>
-<div class="card"><div class="tutu">Skgalhen</div><div class="esp">👋 hola</div><button onclick="play('skgalhen')">🔊 Escuchar voz real</button></div>
-<div class="card"><div class="tutu">Chuh</div><div class="esp">🫓 tortilla</div><button onclick="play('chuh')">🔊 Escuchar voz real</button></div>
-<div class="card"><div class="tutu">Kuh</div><div class="esp">❤️ corazón</div><button onclick="play('kuh')">🔊 Escuchar voz real</button></div
-</script>
-<p style="text-align:center;margin-top:30px;color:#8B4513">Hecho con voz real de Olintla ❤️<br>Por Domingo Vazquez Francisco</p>
+
 <div class="tabs">
 <div id="t1" class="tab activo" onclick="setDir('tot-esp')">Totonaco → Español</div>
 <div id="t2" class="tab" onclick="setDir('esp-tot')">Español → Totonaco</div>
 </div>
+
 <div class="card">
 <input id="q" type="search" placeholder="Busca: milpa, abuelo, fiesta, kuxi... 🔊" oninput="buscar()" autofocus>
 <div class="chips">
@@ -54,40 +47,48 @@ footer{text-align:center;color:#9c8c74;font-size:10px;padding:18px 8px}
 </div>
 <div id="res"></div>
 </div>
-<footer>Lengua Totonaca Traductor © 2026<br>190 palabras Huehuetla - Cuetzalan -Olintla - Con voces de la comunidad</footer>
+
+<div class="card"><div class="tot">Tlakgtlah</div><div class="esp">🌽 elote</div><button class="audio" onclick="playAudio('tlakgtlah')">🔊</button> Escuchar voz real</div>
+<div class="card"><div class="tot">Kachiken</div><div class="esp">🏘️ pueblo</div><button class="audio" onclick="playAudio('kachiken')">🔊</button> Escuchar voz real</div>
+<div class="card"><div class="tot">Paxkgastsinalh</div><div class="esp">🙏 gracias</div><button class="audio" onclick="playAudio('paxkgastsinalh')">🔊</button> Escuchar voz real</div>
+<div class="card"><div class="tot">Skgalhen</div><div class="esp">👋 hola</div><button class="audio" onclick="playAudio('skgalhen')">🔊</button> Escuchar voz real</div>
+<div class="card"><div class="tot">Chuh</div><div class="esp">🫓 tortilla</div><button class="audio" onclick="playAudio('chuh')">🔊</button> Escuchar voz real</div>
+<div class="card"><div class="tot">Kuh</div><div class="esp">❤️ corazón</div><button class="audio" onclick="playAudio('kuh')">🔊</button> Escuchar voz real</div>
+
+<p style="text-align:center;margin-top:30px;color:#8B4513">Hecho con voz real de Olintla ❤️<br>Por Domingo Vazquez Francisco</p>
+<footer>Lengua Totonaca Traductor © 2026<br>190 palabras Huehuetla - Cuetzalan - Olintla - Con voces de la comunidad</footer>
 </main>
+
 <script>
 let dir="tot-esp";
 const diccionario=[
-// 90 OLINTLA ORIGINALES
 {tot:"skalhni",esp:"hola"},{tot:"paxtah katsinilh",esp:"gracias"},{tot:"paxkeyaw",esp:"amamos"},
 {tot:"chikeh",esp:"casa"},{tot:"chicheh",esp:"perro"},{tot:"chuchut",esp:"agua"},{tot:"lhkuy",esp:"arde, quema, fuego"},{tot:"papah",esp:"luna"},
-{tot:"puskat",esp:"mujer"},{tot:"chixkuh",esp:"hombre"},{tot:"kaman",esp:"niños"},{tot:"tsumath",esp:"niña"},,{tot:"Kgawasa'",esp:"niño"},
+{tot:"puskat",esp:"mujer"},{tot:"chixkuh",esp:"hombre"},{tot:"kaman",esp:"niños"},{tot:"tsumath",esp:"niña"},{tot:"Kgawasa'",esp:"niño"},
 {tot:"lhakchajan",esp:"personas"},{tot:"tachiwin",esp:"palabra, idioma"},{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},
 {tot:"xanath",esp:"flor"},{tot:"kuyuh",esp:"armadillo"},{tot:"chiwix",esp:"piedra"},{tot:"tiyath",esp:"tierra"},{tot:"kiweh",esp:"arbol, tronco"},
-{tot:"akgapun",esp:"cielo"},{tot:"lakgapasnih",esp:"conocido"},{tot:"paxneh",esp:"cerdo"},{tot:"kuh",esp:"corazón"},{tot:"talhapaxken",esp:"amor",{tot:"tapaxaw",esp:"feliz"}
+{tot:"akgapun",esp:"cielo"},{tot:"lakgapasnih",esp:"conocido"},{tot:"paxneh",esp:"cerdo"},{tot:"kuh",esp:"corazón"},{tot:"talhapaxken",esp:"amor"},{tot:"tapaxaw",esp:"feliz"},
 {tot:"makan",esp:"mano"},{tot:"lakatun",esp:"lado, lateral"},{tot:"kgawiweh",esp:"frío"},{tot:"lhkakgah",esp:"picante"},{tot:"lakapun",esp:"cara"},{tot:"chichi'",esp:"caliente"},
 {tot:"tlan",esp:"bien, bueno"},{tot:"anin",esp:"hay"},{tot:"min",esp:"viene"},{tot:"kachiken",esp:"pueblo"},{tot:"an",esp:"va, van"},
-{tot:"chicheh",esp:"perro"},{tot:"mitseh",esp:"gato"},{tot:"puxkuh",esp:"jefe, patriarca, presidente"},{tot:"pin",esp:"chile"},{tot:"stapuh",esp:"frijol"},
+{tot:"mitseh",esp:"gato"},{tot:"puxkuh",esp:"jefe, patriarca, presidente"},{tot:"pin",esp:"chile"},{tot:"stapuh",esp:"frijol"},
 {tot:"kapen",esp:"café"},{tot:"kuxlhanchuh",esp:"pan"},{tot:"taway",esp:"comida, alimento"},{tot:"kotnan",esp:"bebe, ingiere"},
 {tot:"tahlhtath",esp:"dormir, sueño"},{tot:"lakatith",esp:"gusto, atraccion"},{tot:"tlankah",esp:"grande"},{tot:"atsow",esp:"poco,reducido"},{tot:"lhuwah",esp:"mucho, exagerado"},
 {tot:"kgalhtuhchokgoh",esp:"rio"},{tot:"nanah",esp:"abuela"},{tot:"tatáh",esp:"abuelo"},{tot:"tseh",esp:"mamá"},{tot:"tlath",esp:"papá"},{tot:"skgatah",esp:"bebe,tierno, hijo"},
-{tot:"pukglhneh",esp:"nube"},{tot:"sen",esp:"lluvia"},{tot:"on",esp:"viento"},{tot:"kilhtahmakuh",esp:"día"},{"putum",esp:"todos"},{tot:"mik",esp:"nieve"},
+{tot:"pukglhneh",esp:"nube"},{tot:"sen",esp:"lluvia"},{tot:"on",esp:"viento"},{tot:"kilhtahmakuh",esp:"día"},{tot:"putum",esp:"todos"},{tot:"mik",esp:"nieve"},
 {tot:"tsisníh",esp:"noche"},{tot:"lahgastapuh",esp:"ojo"},{tot:"kankan",esp:"nariz"},{tot:"kilhnih",esp:"boca"},
 {tot:"lhkuyath",esp:"fuego"},{tot:"tijeh",esp:"camino"},{tot:"akith",esp:"yo"},{tot:"wix",esp:"tú"},
 {tot:"aktum",esp:"uno"},{tot:"aktiy",esp:"dos"},{tot:"aktutuh",esp:"tres"},{tot:"tahtlakneh",esp:"música"},
-// 100 NUEVAS HUEHUETLA Y CUETZALAN
-{tot:"tachanán",esp:"siembra"},{tot:"tlaktlah",esp:"elote"},{tot:"kuxeh",esp:"maiz"},{tot:"chuh",esp:"tortilla"},{tot:"akgxiweth",esp:"jilote"},{tot:"xawath",esp:"milpa"},
+{tot:"tachanán",esp:"siembra"},{tot:"tlaktlah",esp:"elote"},{tot:"akgxiweth",esp:"jilote"},{tot:"xawath",esp:"milpa"},
 {tot:"kgaweth",esp:"nixtamal"},{tot:"xwateh",esp:"metate"},{tot:"puhxpahtan",esp:"molcajete"},
 {tot:"kgalhtawakgah",esp:"aprendizaje"},{tot:"tahkahtsin",esp:"conocimiento, sabiduria"},
 {tot:"tawan",esp:"hoja"},{tot:"wath",esp:"tamal"},
 {tot:"tsikan",esp:"abuela, vieja, curandera"},{tot:"Kgolhoh",esp:"abuelo, sabio, viejo"},
 {tot:"talakapastaknih",esp:"recuerdos"},{tot:"talakgalhin",esp:"maldad, dañado, enfermo"},
 {tot:"sipih",esp:"cerro"},{tot:"kgachuchut",esp:"manantial"},{tot:"tuxtunath",esp:", ojo de agua, yacimiento"},
-{tot:"puxkgah",esp:"barranca"},{tot:"kahlhinakgath", esp:"selva, monte"},{tot:"kahkiwen", esp:"bosque"},{tot:"kgahsakgatneh", esp:"pastizal"},
+{tot:"puxkgah",esp:"barranca"},{tot:"kahlhinakgath",esp:"selva, monte"},{tot:"kahkiwen",esp:"bosque"},{tot:"kgahsakgatneh",esp:"pastizal"},
 {tot:"xalakpuwan",esp:"Cuetzalan"},{tot:"kgoyom",esp:"Huehuetla"},{tot:"kahtsakgathkiweh",esp:"olintla"},{tot:"kahjalhan",esp:"chipawatlan"},{tot:"kahmiyakgneh",esp:"Espinal"},
 {tot:"tutuhnahkuh",esp:"totonaco, gente de los tres corazones"},
-{tot:"tihpalhuwah",esp:"variado"},{tot:"xlhexneh","diferentes, distintas"},{tot:"xmanwah",esp:"unico, solo, sobrante"},
+{tot:"tihpalhuwah",esp:"variado"},{tot:"xlhexneh",esp:"diferentes, distintas"},{tot:"xmanwah",esp:"unico, solo, sobrante"},
 {tot:"kawasah",esp:"niño pequeño"},{tot:"tahlhah",esp:"hermano"},
 {tot:"palmah",esp:"hierba, platas"},{tot:"chichineh",esp:"sol"},
 {tot:"kugkoh",esp:"tío"},{tot:"nahpah",esp:"tía"},{tot:"puxnamath",esp:"sobrina/o"},
@@ -113,7 +114,7 @@ const diccionario=[
 {tot:"tahlhkamaxtoh",esp:"libro, papel escrito"},{tot:"tsokgnan",esp:"escribe"},
 {tot:"pukgalha",esp:"leer"},{tot:"kaxmata",esp:"enseñar"},
 {tot:"kgalhtawakgamah",esp:"aprender"},{tot:"lakgapastakgmah",esp:"pensar, pensamiento"},
-{tot:"tlan",esp:"bien, buen trabajo"},{tot:"tlan tachiwin",esp:"buena palabra, buen consejo"},
+{tot:"tlan tachiwin",esp:"buena palabra, buen consejo"},
 {tot:"kgalhakgaxmath",esp:"escuchar"},{tot:"lakgalhchuwin",esp:"hablar, conferencia, exponer"},
 {tot:"lakgoyum",esp:"abuelos, ancestros, viejos"},{tot:"kimpalakachixkuwin",esp:"niños, futuro del pueblo"},
 {tot:"lakgatankuwin",esp:"mañana, temprano"},{tot:"kgahkgotunun",esp:"tarde"},
@@ -121,34 +122,52 @@ const diccionario=[
 {tot:"xlah lhkuyat chichineh",esp:"fiesta del sol, equinoccio Cuetzalan"},
 {tot:"yohualichan",esp:"Yohualichan, casa de la noche, ruinas"},
 {tot:"laktlawan",esp:"sendero,pasear, caminar por el pueblo"},
-{tot:"lhakgapaxkeyan ",esp:"amor grande, te quiero mucho"}
+{tot:"lhakgapaxkeyan",esp:"amor grande, te quiero mucho"},
+{tot:"tlakgtlah",esp:"elote"},{tot:"kachiken",esp:"pueblo"},{tot:"paxkgastsinalh",esp:"gracias"},{tot:"skgalhen",esp:"hola"},{tot:"kuh",esp:"corazón"}
 ];
-function setDir(m){dir=m;document.getElementById("t1").classList.toggle("activo",m==="tot-esp");document.getElementById("t2").classList.toggle("activo",m==="esp-tot");buscar();}
-function poner(t){document.getElementById("q").value=t;buscar();}
-function hablar(txt, tieneReal){
-let audioPath = `audios/${txt.toLowerCase().replace(/[^a-z0-9]/g,'').substring(0,20)}.mp3`;
-let audio = new Audio(audioPath);
-audio.oncanplay = ()=>{ audio.play(); };
-audio.onerror = ()=>{
-speechSynthesis.cancel();
-let u=new SpeechSynthesisUtterance(txt);u.lang="es-MX";u.rate=0.8;speechSynthesis.speak(u);
-};
-if(tieneReal){ audio.play().catch(()=>{speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(txt);u.lang="es-MX";u.rate=0.8;speechSynthesis.speak(u);}); }
-else { audio.play().catch(()=>{}); setTimeout(()=>{ if(audio.paused){ speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(txt);u.lang="es-MX";u.rate=0.8;speechSynthesis.speak(u);} },300); }
+
+function setDir(m){
+ dir=m;
+ document.getElementById("t1").classList.toggle("activo",m==="tot-esp");
+ document.getElementById("t2").classList.toggle("activo",m==="esp-tot");
+ buscar();
 }
+function poner(t){document.getElementById("q").value=t;buscar();}
+
+// FUNCIÓN CORREGIDA - SOLO AUDIO, NO TOCA TRADUCCIONES
+function playAudio(nombre){
+  const archivo = nombre.toLowerCase().replace(/[^a-z0-9']/g,'').trim();
+  const url = 'audios/' + archivo + '.mp3';
+  const audio = new Audio(url);
+  audio.play().then(()=>{
+    console.log("Reproduciendo voz real: " + url);
+  }).catch(()=>{
+    // Si no hay mp3 real, usa TTS temporal
+    console.log("No hay mp3, usando robot para: " + nombre);
+    speechSynthesis.cancel();
+    let u = new SpeechSynthesisUtterance(nombre);
+    u.lang="es-MX"; u.rate=0.8;
+    speechSynthesis.speak(u);
+  });
+}
+
+function hablar(txt){
+  playAudio(txt);
+}
+
 function buscar(){
 let q=document.getElementById("q").value.toLowerCase().trim(),r=document.getElementById("res");
 if(!q){r.innerHTML=`<div class="msg">🌽 <b>190 palabras</b><br>Huehuetla - Cuetzalan - Olintla - Tutunakú<br><br>Escribe arriba y escucha 🔊<br><b>Verde = voz real de abuelo</b> | Amarillo = robot por ahora</div>`;return;}
-let f=diccionario.filter(d=>d.tot.includes(q)||d.esp.includes(q));
+let f=diccionario.filter(d=> (d.tot && d.tot.toLowerCase().includes(q)) || (d.esp && d.esp.toLowerCase().includes(q)) );
 if(!f.length){r.innerHTML=`<div class="msg">❌ No encontré "${q}"<br>¿Quieres que agregue esa palabra?</div>`;return;}
 r.innerHTML=f.slice(0,80).map(d=>{
 let palabra = dir==="tot-esp"?d.tot:d.esp;
 let trad = dir==="tot-esp"?d.esp:d.tot;
-return `<div class="row"><div class="tot"><button class="audio" onclick="hablar('${d.tot}')">🔊</button> ${palabra} <span class="badge robot">ROBOT</span></div><span class="esp">${trad}</span></div>`;
+let esReal = ["tlakgtlah","kachiken","paxkgastsinalh","skgalhen","chuh","kuh","tlaktlah","skalhni"].includes(d.tot.toLowerCase());
+return `<div class="row"><div class="tot"><button class="audio" onclick="hablar('${d.tot.replace(/'/g,"\\'")}')">🔊</button> ${palabra} <span class="badge ${esReal?'':'robot'}">${esReal?'VOZ REAL':'ROBOT'}</span></div><span class="esp">${trad}</span></div>`;
 }).join("") + `<div class="msg">Encontradas: ${f.length} de 190<br>🎙️ Graba audios reales para quitar etiqueta ROBOT</div>`;
 }
 buscar();
-function compartir(){window.open("https://wa.me/?text=🌽 Lengua Totonaca 190 palabras con audio Huehuetla Cuetzalan: "+encodeURIComponent(location.href),"_blank");}
 </script>
 </body>
 </html>
