@@ -65,13 +65,33 @@ const diccionario=[
 {tot:"Tlakgtlah",esp:"🌽 elote"},{tot:"Kachiken",esp:"🏘️ pueblo"},{tot:"Paxkgastsinalh",esp:"🙏 gracias"},{tot:"Skgalhen",esp:"👋 hola, que tal"},{tot:"Chuh",esp:"🌮 tortilla"},{tot:"Kuh",esp:"❤️ corazon"},{tot:"lhkguyath",esp:"🔥 fuego"},{tot:"puhmalhkguy",esp:"🫕 fogón, fogata, bracero o cocina"},{tot:"Puksnankgakg",esp:"☘️ pápalo"},{tot:"Xtan",esp:"🐀 tlacuache"},{tot:"Lhkgakgnan",esp:"🥵 bochorno, hace calor"},{tot:"Kgalhtuhchokgoh",esp:"🏞️ río"},{tot:"Lhakgtsohpin",esp:"🌶️ chile piquín"},{tot:"Wath",esp:"🫔 tamal"},{tot:"Puhmahkgalhtawakgah",esp:"📚 escuela"},{tot:"Xukguth",esp:"🍋‍🟩 limón"},{tot:"Stlan",esp:"👌 bien, correcto, perfecto, bello"},{tot:"lhuh stlan kgmakgantuxtalh",esp:"me quedó perfecto"},{tot:"Makgyawath",esp:"🧥👖 pantalón"},{tot:"Kgan",esp:"👗 vestido"},{tot:"Taxtihkgeth",esp:"🪑 banco"},{tot:"Puhtuwelh",esp:"🏕️ predio"},{tot:"Lhitatawalhath",esp:"👰🏻‍♀️ novia"},{tot:"Tahjatath",esp:"🤒 enfermedad"},{tot:"Xtilhan",esp:"🐔 gallina"},{tot:"Chichineh",esp:"☀️ sol, ardiente"}
 ];
 
-const AUDIOS_NUEVOS = {
-"tlakgtlah":"audios/Tlakgtlah.mp3","kachiken":"audios/Kachiken.mp3","paxkgastsinalh":"audios/Paxkgastsinalh.mp3","skgalhen":"audios/Skgalhen.mp3","chuh":"audios/Chuh.mp3","kuh":"audios/Kuh.mp3","lhkguyath":"audios/lhkguyath.mp3","puhmalhkguy":"audios/puhmalhkguy.mp3","puksnankgakg":"audios/Puksnankgakg.mp3","xtan":"audios/Xtan.mp3","lhkgakgnan":"audios/Lhkgakgnan.mp3","kgalhtuhchokgoh":"audios/Kgalhtuhchokgoh.mp3","lhakgtsohpin":"audios/Lhakgtsohpin.mp3","wath":"audios/Wath.mp3","wati'h":"audios/Wath.mp3","puhmahkgalhtawakgah":"audios/Puhmahkgalhtawakgah.mp3","xukguth":"audios/Xukguth.mp3","stlan":"audios/Stlan.mp3","lhuh_stlan_kgmakgantuxtalh":"audios/lhuh_stlan_kgmakgantuxtalh.mp3","makgyawath":"audios/Makgyawath.mp3","kgan":"audios/Kgan.mp3","taxtihkgeth":"audios/Taxtihkgeth.mp3","puhtuwelh":"audios/Puhtuwelh.mp3","lhitatawalhath":"audios/Lhitatawalhath.mp3","tahjatath":"audios/Tahjatath.mp3","xtilhan":"audios/Xtilhan.mp3","chichineh":"audios/Chichineh.mp3"
+// MAPEO CORREGIDO - YA NO IMPORTAN ESPACIOS NI MAYUSCULAS
+const AUDIOS_NUEVOS_RAW = {
+"tlakgtlah":"audios/Tlakgtlah.mp3","kachiken":"audios/Kachiken.mp3","paxkgastsinalh":"audios/Paxkgastsinalh.mp3","skgalhen":"audios/Skgalhen.mp3","chuh":"audios/Chuh.mp3","kuh":"audios/Kuh.mp3","lhkguyath":"audios/lhkguyath.mp3","puhmalhkguy":"audios/puhmalhkguy.mp3","puksnankgakg":"audios/Puksnankgakg.mp3","xtan":"audios/Xtan.mp3","lhkgakgnan":"audios/Lhkgakgnan.mp3","kgalhtuhchokgoh":"audios/Kgalhtuhchokgoh.mp3","lhakgtsohpin":"audios/Lhakgtsohpin.mp3","wath":"audios/Wath.mp3","puhmahkgalhtawakgah":"audios/Puhmahkgalhtawakgah.mp3","xukguth":"audios/Xukguth.mp3","stlan":"audios/Stlan.mp3","lhuh stlan kgmakgantuxtalh":"audios/lhuh_stlan_kgmakgantuxtalh.mp3","makgyawath":"audios/Makgyawath.mp3","kgan":"audios/Kgan.mp3","taxtihkgeth":"audios/Taxtihkgeth.mp3","puhtuwelh":"audios/Puhtuwelh.mp3","lhitatawalhath":"audios/Lhitatawalhath.mp3","tahjatath":"audios/Tahjatath.mp3","xtilhan":"audios/Xtilhan.mp3","chichineh":"audios/Chichineh.mp3"
 };
 
+// Normalizador para que no falle por espacios/guiones
+function normaliza(t){ return t.toLowerCase().replace(/_/g," ").replace(/\s+/g," ").trim(); }
+const AUDIOS_NUEVOS = {};
+for(let k in AUDIOS_NUEVOS_RAW){ AUDIOS_NUEVOS[normaliza(k)] = AUDIOS_NUEVOS_RAW[k]; }
+
 function setDir(m){dir=m; document.getElementById("t1").classList.toggle("activo",m==="tot-esp"); document.getElementById("t2").classList.toggle("activo",m==="esp-tot"); buscar();}
-function poner(t){document.getElementById("q").value=t;buscar();}
-function playAudio(n){let k=n.toLowerCase().trim(); let u=AUDIOS_NUEVOS[k]; if(u){new Audio(encodeURI(u)).play();} else {let s=new SpeechSynthesisUtterance(n); s.lang="es-MX"; s.rate=0.8; speechSynthesis.speak(s);} }
+
+function playAudio(n){
+  let key = normaliza(n);
+  let url = AUDIOS_NUEVOS[key];
+  if(url){
+    console.log("Voz real: "+url);
+    let audio = new Audio(encodeURI(url));
+    audio.play().catch(e=>{
+      console.error("No se pudo reproducir, verifica que existe: "+url, e);
+      // Intenta sin encodeURI por si acaso
+      new Audio(url).play();
+    });
+    return;
+  }
+  let s=new SpeechSynthesisUtterance(n); s.lang="es-MX"; s.rate=0.8; speechSynthesis.speak(s);
+}
 function hablar(n){playAudio(n);}
 
 function buscar(){
@@ -80,12 +100,14 @@ if(!q){r.innerHTML=`<div class="msg">🌽 <b>${diccionario.length} palabras</b><
 let f=diccionario.filter(d=>d.tot.toLowerCase().includes(q)||d.esp.toLowerCase().includes(q));
 r.innerHTML=f.slice(0,80).map(d=>{
 let palabra=dir==="tot-esp"?d.tot:d.esp; let trad=dir==="tot-esp"?d.esp:d.tot;
-let esReal=!!AUDIOS_NUEVOS[d.tot.toLowerCase().trim()];
+let esReal=!!AUDIOS_NUEVOS[normaliza(d.tot)];
 return `<div class="row"><div class="tot"><button class="audio" onclick="hablar('${d.tot.replace(/'/g,"\\'")}')">🔊</button> ${palabra} <span class="badge ${esReal?'':'robot'}">${esReal?'VOZ REAL':'ROBOT'}</span></div><span class="esp">${trad}</span></div>`;
 }).join("")+`<div class="msg">Encontradas: ${f.length}</div>`;
 }
 
-document.getElementById("listaReal").innerHTML = diccionario.filter(d=>AUDIOS_NUEVOS[d.tot.toLowerCase().trim()]).slice(0,26).map(d=>{
+document.getElementById("listaReal").innerHTML = Object.keys(AUDIOS_NUEVOS).map(k=>{
+let d = diccionario.find(x=> normaliza(x.tot)===k );
+if(!d) return "";
 return `<div class="row"><div class="tot"><button class="audio" onclick="hablar('${d.tot.replace(/'/g,"\\'")}')">🔊</button> ${d.tot}</div><span class="esp">${d.esp}</span></div>`;
 }).join("");
 
