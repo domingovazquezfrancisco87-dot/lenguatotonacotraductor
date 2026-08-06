@@ -3,109 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lengua Totonaca Traductor</title>
+<title>Traductor Totonaco</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#FFFBEB}
-header{background:linear-gradient(135deg,#7A3E1F,#A85D3A);color:white;padding:18px;text-align:center}
-main{max-width:750px;margin:auto;padding:10px}
-.card{background:white;border-radius:16px;padding:14px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:14px}
-.box{border:2px solid #7A3E1F;border-radius:16px;padding:12px;background:white;margin-bottom:14px}
-.box.esp{border-color:#1B5E20}
-textarea{width:100%;padding:12px;font-size:16px;border-radius:10px;border:2px solid #E7D9C0;min-height:70px}
-.res{min-height:20px;padding:5px;margin-top:8px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #eee;background:#FFFBEB;border-radius:10px;margin:4px 0}
-.tot{font-weight:800;color:#1B5E20;display:flex;gap:6px;align-items:center}
-.audio{width:32px;height:32px;border-radius:50%;border:none;background:#7A3E1F;color:white;cursor:pointer}
-.msg{text-align:center;color:#8a7a63;font-size:11px;padding:10px}
+body{margin:0;font-family:Arial;background:#FFFBEB}header{background:#7A3E1F;color:white;padding:15px;text-align:center}main{max-width:700px;margin:auto;padding:10px}.card{background:white;padding:12px;border-radius:12px;margin-bottom:12px}.box{border:2px solid #7A3E1F;border-radius:12px;padding:10px;background:white;margin-bottom:12px}.box.e{border-color:green}textarea{width:100%;padding:10px;font-size:16px;border-radius:8px}.item{padding:8px;background:#FFF8E1;margin:5px 0;border-radius:8px;display:flex;justify-content:space-between}
 </style>
 </head>
 <body>
-<header><h1>🌽 Traductor Totonaco</h1><p id="cont">Olintla - 3 Raíces</p></header>
+<header><h2>🌽 Traductor Totonaco Olintla</h2></header>
 <main>
+<div class="card"><b>📖 3 Raíces:</b><br>1. Puhmalhkuy=fogón (puh+mah+lhkuyath)<br>2. Kuxlhanchuh=pan (kuh+xlhah+chuh)<br>3. Puksnankakgakg=pápalo (puks+nahan+kakg)</div>
 
-<div class="card" style="border:2px solid #D4A76A;background:#FFFEF5">
-<h3 style="text-align:center;color:#7A3E1F;margin:0 0 8px">📖 Cómo entender el Totonaco - 3 Raíces</h3>
-<p style="font-size:12px;background:#E8F5E9;padding:8px;border-radius:8px"><b>1. Puhmalhkuy = fogón</b> → puh (hecho) + mah (sobre) + lhkuyath (fuego)</p>
-<p style="font-size:12px;background:#FFF3C4;padding:8px;border-radius:8px"><b>2. Kuxlhanchuh = pan</b> → kuh (corazón) + xlhah (suyo) + chuh (tortilla)</p>
-<p style="font-size:12px;background:#FCE4EC;padding:8px;border-radius:8px"><b>3. Puksnankakgakg = pápalo</b> → puks (oloroso) + nahan (va) + kakg (quelite)</p>
-</div>
-
-<div class="box esp">
-<h3 style="text-align:center;color:#1B5E20;margin:0 0 10px">🇲🇽 → 🌽 Español → Totonaco (1)</h3>
-<textarea id="q1" placeholder="Escribe en ESPAÑOL: sol, agua, hola..." oninput="trad1()"></textarea>
-<div id="r1" class="res"></div>
+<div class="box e">
+<h3>🇲🇽 Español → Totonaco</h3>
+<textarea id="q1" oninput="buscar1()" placeholder="Escribe: sol, agua, hola..."></textarea>
+<div id="r1"></div>
 </div>
 
 <div class="box">
-<h3 style="text-align:center;color:#7A3E1F;margin:0 0 10px">🌽 → 🇲🇽 Totonaco → Español (2)</h3>
-<textarea id="q2" placeholder="Escribe en TOTONACO: chichineh, chuchut..." oninput="trad2()"></textarea>
-<div id="r2" class="res"></div>
+<h3>🌽 Totonaco → Español</h3>
+<textarea id="q2" oninput="buscar2()" placeholder="Escribe: chichineh, chuchut..."></textarea>
+<div id="r2"></div>
 </div>
-
-<div id="est" class="msg">Localizando audios...</div>
 </main>
-
 <script>
-const base=[
-{tot:"skalhen",esp:"hola"},{tot:"chuchut",esp:"agua"},{tot:"chichineh",esp:"sol, ardiente"},{tot:"chikeh",esp:"casa"},{tot:"lhkuyath",esp:"fuego"},{tot:"kuh",esp:"corazón"},{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},{tot:"kuxlhanchuh",esp:"pan"},{tot:"puhmalhkuy",esp:"fogón"},{tot:"puksnankakgakg",esp:"pápalo"},{tot:"kgalhtuhchokgoh",esp:"rio"},{tot:"wath",esp:"tamal"},{tot:"xanath",esp:"flor"},{tot:"papah",esp:"luna"},{tot:"kachiken",esp:"pueblo"},{tot:"tlakgtlah",esp:"elote"},{tot:"stlan",esp:"bien"},{tot:"paxkgastsinalh",esp:"gracias"},{tot:"skgalhen",esp:"hola que tal"},{tot:"nanah",esp:"abuela"},{tot:"tatah",esp:"abuelo"},{tot:"tachiwin",esp:"palabra"},{tot:"tutuhnahkuh",esp:"totonaco"},{tot:"lhakgtsohpin",esp:"chile piquin"},{tot:"xukuth",esp:"limón"},{tot:"lhkakgnan",esp:"bochorno, hace calor"},{tot:"xtan",esp:"tlacuache"}
+const datos=[
+["skalhen","hola"],["chuchut","agua"],["chichineh","sol"],["chikeh","casa"],["lhkuyath","fuego"],["kuh","corazón"],["chuh","tortilla"],["kuxlhanchuh","pan"],["puhmalhkuy","fogón"],["puksnankakgakg","pápalo"],["kgalhtuhchokgoh","rio"],["wath","tamal"],["kachiken","pueblo"],["tlakgtlah","elote"],["paxkgastsinalh","gracias"],["skgalhen","hola"],["nanah","abuela"],["tatah","abuelo"]
 ];
-const dic=[...new Map(base.map(o=>[o.tot.toLowerCase(),o])).values()];
-function norm(t){return t.toLowerCase().replace(/_/g," ").trim().replace(/\s+/g," ");}
-
-let AUD={};
-// CORRECCION FALLA API: Lista forzada de tus audios reales (sin depender de GitHub API)
-const AUDIOS_FORZADOS = [
-"Chichineh","Chuchut","Kachiken","Paxkgastsinalh","Skgalhen","Tlakgtlah","Kuh","Chuh","Wath","Kuxlhanchuh","Puhmalhkuy","Puksnankakgakg","Kgalhtuhchokgoh","Xtan","Lhkakgnan","Lhakgtsohpin","Puhmahkgalhtawakgah","Xukuth","Stlan","Makgyawath","Kgan","Taxtihkgeth","Puhtuwelh","Lhitatawalhath","Tahjatath","Xtilhan"
-];
-AUDIOS_FORZADOS.forEach(n=>{ AUD[norm(n)] = `audios/${n}.m4a`; });
-
-async function loc(){
- try{
-  const r=await fetch(`https://api.github.com/repos/domingovazquezfrancisco87-dot/lenguatotonacotraductor/contents/audios?t=${Date.now()}`);
-  if(r.ok){
-    const j=await r.json();
-    j.filter(a=>/\.(m4a|mp3|wav|ogg)$/i.test(a.name)).forEach(a=>{ AUD[norm(a.name.replace(/\.[^/.]+$/,""))] = `audios/${a.name}`; });
-  }
-  document.getElementById("est").innerText=`✅ ${Object.keys(AUD).length} audios localizados - corrección API activa`;
-  document.getElementById("cont").innerText=`${dic.length} palabras + ${Object.keys(AUD).length} audios`;
- }catch(e){
-  document.getElementById("est").innerText=`✅ ${Object.keys(AUD).length} audios en modo forzado (sin API)`;
- }
-}
-
-// CORRECCION AUDIO: Prueba m4a, luego mp3, con encodeURI para espacios y =
 function play(t){
- let key=norm(t);
- let url=AUD[key];
- if(!url) url=`audios/${t}.m4a`;
- let a1=new Audio(encodeURI(url));
- a1.play().catch(()=>{
-   let a2=new Audio(encodeURI(url.replace(".m4a",".mp3")));
-   a2.play().catch(()=>{
-     let a3=new Audio(encodeURI(`audios/${t}.mp3`));
-     a3.play().catch(()=>alert("Audio no encontrado: "+t+". Revisa que exista en /audios como "+t+".m4a"));
-   });
- });
+  // CORRECCION: intenta todos los nombres posibles
+  let nombres=[`audios/${t}.m4a`,`audios/${t}.mp3`,`audios/${t.toLowerCase()}.m4a`,`audios/${t.toLowerCase()}.mp3`,`audios/${t.toLowerCase()} = ${t}.m4a`];
+  let a=new Audio(encodeURI(nombres[0]));
+  a.play().catch(()=>{
+    let b=new Audio(encodeURI(nombres[1]));
+    b.play().catch(()=>{
+      let c=new Audio(encodeURI(nombres[2]));
+      c.play().catch(()=>alert("Audio no encontrado. Renombra en GitHub a: "+t+".m4a"));
+    });
+  });
 }
-
-function trad1(){
+function buscar1(){
  let q=document.getElementById("q1").value.toLowerCase().trim();
- let d=document.getElementById("r1");
- if(!q){d.innerHTML="";return;}
- let f=dic.filter(x=>x.esp.toLowerCase().includes(q));
- if(!f.length){d.innerHTML="<div class=msg>No encontrado</div>";return;}
- d.innerHTML=f.map(x=>`<div class=row><div class=tot><button class=audio onclick="play('${x.tot}')">🔊</button> ${x.tot}</div><span>${x.esp}</span></div>`).join("");
+ let r=document.getElementById("r1");
+ if(!q){r.innerHTML="";return;}
+ let f=datos.filter(d=>d[1].includes(q));
+ r.innerHTML=f.map(d=>`<div class=item><span><button onclick="play('${d[0]}')">🔊</button> <b>${d[0]}</b></span><span>${d[1]}</span></div>`).join("")||"No encontrado";
 }
-function trad2(){
+function buscar2(){
  let q=document.getElementById("q2").value.toLowerCase().trim();
- let d=document.getElementById("r2");
- if(!d){return;}
- if(!q){d.innerHTML="";return;}
- let f=dic.filter(x=>x.tot.toLowerCase().includes(q));
- if(!f.length){d.innerHTML="<div class=msg>No encontrado</div>";return;}
- d.innerHTML=f.map(x=>`<div class=row><div class=tot><button class=audio onclick="play('${x.tot}')">🔊</button> ${x.tot}</div><span>${x.esp}</span></div>`).join("");
+ let r=document.getElementById("r2");
+ if(!q){r.innerHTML="";return;}
+ let f=datos.filter(d=>d[0].toLowerCase().includes(q));
+ r.innerHTML=f.map(d=>`<div class=item><span><button onclick="play('${d[0]}')">🔊</button> <b>${d[0]}</b></span><span>${d[1]}</span></div>`).join("")||"No encontrado";
 }
-loc();
 </script>
 </body>
 </html>
