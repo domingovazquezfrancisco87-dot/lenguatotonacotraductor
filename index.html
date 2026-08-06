@@ -74,7 +74,7 @@ let AUDIOS_NUEVOS = {}; // se llena solo desde GitHub
 
 async function localizarAudiosRecientes(){
  try{
-  const res = await fetch(`https://api.github.com/repos/domingovazquezfrancisco87-dot/lenguatotonacotraductor/contents/audios?t=${Date.now()}`);
+  const res = await fetch(`https://api.github.com/domingovazquezfrancisco87-dot/lenguatotonacotraductor/tree/main/audios?t=${Date.now()}`);
   const archivos = await res.json();
   const soloAudios = archivos.filter(a=>/\.(m4a|mp3|wav|ogg)$/i.test(a.name));
   AUDIOS_NUEVOS = {};
