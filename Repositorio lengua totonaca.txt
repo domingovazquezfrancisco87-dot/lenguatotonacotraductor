@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="0jL_UTHqy_bqemgECamGBLBVWnW5rdqDR3KvQ2uuQ5k" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lengua Totonaca Traductor</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#FFFBEB}
+header{background:linear-gradient(135deg,#7A3E1F,#A85D3A);color:white;padding:18px 12px;text-align:center}
+main{max-width:800px;margin:auto;padding:10px}
+.card{background:white;border-radius:16px;padding:14px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:14px}
+.traductor-box{border:2px solid #7A3E1F;border-radius:16px;padding:12px;background:white;margin-bottom:14px}
+.traductor-box.esp-tot{border-color:#1B5E20}
+.traductor-box h3{margin:0 0 10px;text-align:center;font-size:15px}
+textarea{width:100%;padding:12px;font-size:15px;border-radius:10px;border:2px solid #E7D9C0;min-height:70px;resize:vertical}
+.res-box{min-height:50px;padding:10px;background:#FFFBEB;border-radius:10px;margin-top:8px;font-size:14px;line-height:1.5}
+.row{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:8px 3px;border-bottom:1px solid #F2E9D6}
+.tot{font-weight:800;color:#1B5E20;font-size:14px;display:flex;align-items:center;gap:6px}
+.esp{color:#333;font-size:13px}
+.badge{font-size:9px;padding:2px 6px;border-radius:99px;background:#E8F5E9;color:#1B5E20;font-weight:700}
+.badge.robot{background:#FFF3C4;color:#8a6d00}
+.audio{width:32px;height:32px;border-radius:50%;border:none;background:#7A3E1F;color:white;cursor:pointer}
+.msg{text-align:center;color:#8a7a63;padding:10px;font-size:11px}
+footer{text-align:center;color:#9c8c74;font-size:10px;padding:18px}
+</style>
+</head>
+<body>
+<header>
+<h1>🌽 Lengua Totonaca Traductor</h1>
+<p id="contador">Olintla · Huehuetla · Cuetzalan</p>
+</header>
+<main>
+
+<div class="card" style="background:#FFFEF5;border:2px solid #D4A76A">
+<h3 style="margin:0 0 8px;color:#7A3E1F;text-align:center">📖 3 Raíces del Totonaco</h3>
+<div style="font-size:12px;line-height:1.5;color:#5a3e2b">
+<b>1. Puhmalhkuy = fogón</b> → puh (hecho) + mah (sobre) + lhkuyath (fuego)<br>
+<b>2. Kuxlhanchuh = pan</b> → kuh (corazón) + xlhah (suyo) + chuh (tortilla)<br>
+<b>3. Puksnankakgakg = pápalo</b> → puks (oloroso) + nahan (va) + kakg (quelite)
+</div>
+</div>
+
+<!-- RECUADRO 1: ESPAÑOL A TOTONACO -->
+<div class="traductor-box esp-tot">
+<h3>🇲🇽 → 🌽 Español → Totonaco</h3>
+<textarea id="qEspTot" placeholder="Escribe en español: sol, agua, gracias, casa..." oninput="traducirEspTot()"></textarea>
+<div id="resEspTot" class="res-box"><span class="msg">Escribe una palabra en español arriba</span></div>
+</div>
+
+<!-- RECUADRO 2: TOTONACO A ESPAÑOL -->
+<div class="traductor-box">
+<h3>🌽 → 🇲🇽 Totonaco → Español</h3>
+<textarea id="qTotEsp" placeholder="Escribe en totonaco: chichineh, chuchut, pax..." oninput="traducirTotEsp()"></textarea>
+<div id="resTotEsp" class="res-box"><span class="msg">Escribe una palabra en totonaco arriba</span></div>
+</div>
+
+<div class="card" style="border:2px solid #7A3E1F">
+<h3 style="margin:0 0 10px;color:#7A3E1F;text-align:center">🎙️ Audios Reales Localizados Automáticamente</h3>
+<div id="estado" style="text-align:center;font-size:11px;color:#7A3E1F">Buscando audios en /audios...</div>
+<div id="listaReal"></div>
+</div>
+
+<footer>Lengua Totonaca © 2026 - Olintla ❤️ Por Domingo Vazquez Francisco</footer>
+</main>
+
+<script>
+const diccionarioBase=[
+{tot:"skalhni",esp:"hola"},{tot:"paxtahkatsinilh",esp:"gracias"},{tot:"chikeh",esp:"casa"},{tot:"chuchut",esp:"agua"},{tot:"lhkuyath",esp:"fuego"},{tot:"chichineh",esp:"sol, ardiente"},{tot:"papah",esp:"luna"},{tot:"puskat",esp:"mujer"},{tot:"chixkuh",esp:"hombre"},{tot:"kaman",esp:"niños"},{tot:"tsumath",esp:"niña"},{tot:"Kgawasa'",esp:"niño"},{tot:"tachiwin",esp:"palabra, idioma"},{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},{tot:"xanath",esp:"flor"},{tot:"kiweh",esp:"arbol"},{tot:"akgapun",esp:"cielo"},{tot:"kuh",esp:"corazón"},{tot:"talhapaxken",esp:"amor"},{tot:"tapaxaw",esp:"feliz"},{tot:"wath",esp:"tamal"},{tot:"kuxlhanchuh",esp:"pan"},{tot:"puhmalhkuy",esp:"fogón"},{tot:"puksnankakgakg",esp:"pápalo"},{tot:"kgalhtuhchokgoh",esp:"rio"},{tot:"paxkgastsinalh",esp:"gracias"},{tot:"skgalhen",esp:"hola"},{tot:"kachiken",esp:"pueblo"},{tot:"tlakgtlah",esp:"elote"},{tot:"stlan",esp:"bien"},{tot:"lhkakgnan",esp:"bochorno, hace calor"},{tot:"xtan",esp:"tlacuache"},{tot:"xukuth",esp:"limón"},{tot:"lhakgtsohpin",esp:"chile piquin"},{tot:"taxtihkgeth",esp:"banco"},{tot:"puhtuwelh",esp:"predio"},{tot:"lhitatawalhath",esp:"novia"},{tot:"tahjatath",esp:"enfermedad"},{tot:"xtilhan",esp:"gallina"}
+];
+// QUITA DUPLICADOS - deja la última
+const diccionario = [...new Map(diccionarioBase.map(o=>[o.tot.toLowerCase().trim(), o])).values()];
+
+function normaliza(t){ return t.toLowerCase().replace(/_/g," ").replace(/\s+/g," ").trim(); }
+let AUDIOS_NUEVOS = {};
+
+async function localizarAudiosRecientes(){
+ try{
+  const res = await fetch(`https://api.github.com/repos/domingovazquezfrancisco87-dot/lenguatotonacotraductor/contents/audios?t=${Date.now()}`);
+  const archivos = await res.json();
+  const soloAudios = archivos.filter(a=>/\.(m4a|mp3|wav|ogg)$/i.test(a.name));
+  soloAudios.forEach(a=>{ AUDIOS_NUEVOS[normaliza(a.name.replace(/\.[^/.]+$/, ""))] = `audios/${a.name}`; });
+  document.getElementById("estado").innerText = `✅ ${soloAudios.length} audios recientes localizados automáticamente`;
+  document.getElementById("contador").innerText = `${diccionario.length} palabras + ${soloAudios.length} audios reales`;
+  renderListaReal();
+ }catch(e){
+  document.getElementById("estado").innerText = "Modo local";
+  renderListaReal();
+ }
+}
+
+function playAudio(tot){
+ let url = AUDIOS_NUEVOS[normaliza(tot)];
+ if(url){ new Audio(encodeURI(url)).play(); return; }
+ let s=new SpeechSynthesisUtterance(tot); s.lang="es-MX"; s.rate=0.8; speechSynthesis.speak(s);
+}
+
+function traducirEspTot(){
+ let q=document.getElementById("qEspTot").value.toLowerCase().trim();
+ let div=document.getElementById("resEspTot");
+ if(!q){div.innerHTML=`<span class="msg">Escribe en español</span>`; return;}
+ let f=diccionario.filter(d=>d.esp.toLowerCase().includes(q));
+ if(f.length==0){div.innerHTML=`<span class="msg">No encontrado: ${q}</span>`; return;}
+ div.innerHTML=f.slice(0,15).map(d=>{
+  let esReal=!!AUDIOS_NUEVOS[normaliza(d.tot)];
+  return `<div class="row"><div class="tot"><button class="audio" onclick="playAudio('${d.tot.replace(/'/g,"\\'")}')">🔊</button> ${d.tot} <span class="badge ${esReal?'':'robot'}">${esReal?'VOZ REAL':'ROBOT'}</span></div><span class="esp">${d.esp}</span></div>`;
+ }).join("");
+}
+function traducirTotEsp(){
+ let q=document.getElementById("qTotEsp").value.toLowerCase().trim();
+ let div=document.getElementById("resTotEsp");
+ if(!q){div.innerHTML=`<span class="msg">Escribe en totonaco</span>`; return;}
+ let f=diccionario.filter(d=>d.tot.toLowerCase().includes(q));
+ if(f.length==0){div.innerHTML=`<span class="msg">No encontrado: ${q}</span>`; return;}
+ div.innerHTML=f.slice(0,15).map(d=>{
+  let esReal=!!AUDIOS_NUEVOS[normaliza(d.tot)];
+  return `<div class="row"><div class="tot"><button class="audio" onclick="playAudio('${d.tot.replace(/'/g,"\\'")}')">🔊</button> ${d.tot} <span class="badge ${esReal?'':'robot'}">${esReal?'VOZ REAL':'ROBOT'}</span></div><span class="esp">${d.esp}</span></div>`;
+ }).join("");
+}
+function renderListaReal(){
+ document.getElementById("listaReal").innerHTML = Object.keys(AUDIOS_NUEVOS).map(k=>{
+  let d = diccionario.find(x=> normaliza(x.tot)===k );
+  return `<div class="row"><div class="tot"><button class="audio" onclick="playAudio('${(d?d.tot:k).replace(/'/g,"\\'")}')">🔊</button> ${d?d.tot:k}</div><span class="esp">${d?d.esp:'audio reciente'}</span></div>`;
+ }).join("") || `<div class="msg">Sube audios a /audios y aparecerán solos aquí</div>`;
+}
+localizarAudiosRecientes();
+</script>
+</body>
+</html>
