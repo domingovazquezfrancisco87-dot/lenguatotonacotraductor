@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lengua Totonaca Traductor</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#FFFBEB}
+header{background:linear-gradient(135deg,#7A3E1F,#A85D3A);color:white;padding:18px;text-align:center}
+main{max-width:750px;margin:auto;padding:10px}
+.card{background:white;border-radius:16px;padding:14px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:14px}
+.box{border:2px solid #7A3E1F;border-radius:16px;padding:12px;background:white;margin-bottom:14px}
+.box.esp{border-color:#1B5E20}
+textarea{width:100%;padding:12px;font-size:16px;border-radius:10px;border:2px solid #E7D9C0;min-height:70px}
+.res{min-height:20px;padding:5px;margin-top:8px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #eee;background:#FFFBEB;border-radius:10px;margin:4px 0}
+.tot{font-weight:800;color:#1B5E20;display:flex;gap:6px;align-items:center}
+.audio{width:32px;height:32px;border-radius:50%;border:none;background:#7A3E1F;color:white;cursor:pointer}
+.msg{text-align:center;color:#8a7a63;font-size:11px;padding:10px}
+</style>
+</head>
+<body>
+<header><h1>🌽 Traductor Totonaco</h1><p id="cont">Olintla - 3 Raíces</p></header>
+<main>
+
+<div class="card" style="border:2px solid #D4A76A;background:#FFFEF5">
+<h3 style="text-align:center;color:#7A3E1F;margin:0 0 8px">📖 Cómo entender el Totonaco - 3 Raíces</h3>
+<p style="font-size:12px;background:#E8F5E9;padding:8px;border-radius:8px"><b>1. Puhmalhkuy = fogón</b> → puh (hecho) + mah (sobre) + lhkuyath (fuego)</p>
+<p style="font-size:12px;background:#FFF3C4;padding:8px;border-radius:8px"><b>2. Kuxlhanchuh = pan</b> → kuh (corazón) + xlhah (suyo) + chuh (tortilla)</p>
+<p style="font-size:12px;background:#FCE4EC;padding:8px;border-radius:8px"><b>3. Puksnankakgakg = pápalo</b> → puks (oloroso) + nahan (va) + kakg (quelite)</p>
+</div>
+
+<div class="box esp">
+<h3 style="text-align:center;color:#1B5E20;margin:0 0 10px">🇲🇽 → 🌽 Español → Totonaco</h3>
+<textarea id="q1" placeholder="Escribe aquí en ESPAÑOL: sol, agua, hola..." oninput="trad1()"></textarea>
+<div id="r1" class="res"></div>
+</div>
+
+<div class="box">
+<h3 style="text-align:center;color:#7A3E1F;margin:0 0 10px">🌽 → 🇲🇽 Totonaco → Español</h3>
+<textarea id="q2" placeholder="Escribe aquí en TOTONACO: chichineh, chuchut..." oninput="trad2()"></textarea>
+<div id="r2" class="res"></div>
+</div>
+
+<div id="est" class="msg">Localizando audios...</div>
+</main>
+
+<script>
+const base=[
+{tot:"skalhni",esp:"hola"},{tot:"chuchut",esp:"agua"},{tot:"chichineh",esp:"sol, ardiente"},{tot:"chikeh",esp:"casa"},{tot:"lhkuyath",esp:"fuego"},{tot:"kuh",esp:"corazón"},{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},{tot:"kuxlhanchuh",esp:"pan"},{tot:"puhmalhkuy",esp:"fogón"},{tot:"puksnankakgakg",esp:"pápalo"},{tot:"kgalhtuhchokgoh",esp:"rio"},{tot:"wath",esp:"tamal"},{tot:"xanath",esp:"flor"},{tot:"papah",esp:"luna"},{tot:"kachiken",esp:"pueblo"},{tot:"tlakgtlah",esp:"elote"},{tot:"stlan",esp:"bien"},{tot:"paxkgastsinalh",esp:"gracias"},{tot:"skgalhen",esp:"hola que tal"},{tot:"nanah",esp:"abuela"},{tot:"tatah",esp:"abuelo"},{tot:"tachiwin",esp:"palabra"},{tot:"tutuhnahkuh",esp:"totonaco"},{tot:"lhakgtsohpin",esp:"chile piquin"},{tot:"xukuth",esp:"limón"}
+];
+const dic=[...new Map(base.map(o=>[o.tot.toLowerCase(),o])).values()];
+function norm(t){return t.toLowerCase().replace(/_/g," ").trim();}
+let AUD={};
+async function loc(){
+ try{
+  const r=await fetch(`https://api.github.com/repos/domingovazquezfrancisco87-dot/lenguatotonacotraductor/contents/audios?t=${Date.now()}`);
+  const j=await r.json();
+  j.filter(a=>/\.(m4a|mp3|wav|ogg)$/i.test(a.name)).forEach(a=>{AUD[norm(a.name.replace(/\.[^/.]+$/,""))]=`audios/${a.name}`;});
+  document.getElementById("est").innerText=`✅ ${Object.keys(AUD).length} audios listos - escribe una palabra para escuchar`;
+  document.getElementById("cont").innerText=`${dic.length} palabras + ${Object.keys(AUD).length} audios`;
+ }catch(e){document.getElementById("est").innerText="Audios en modo local";}
+}
+function play(t){let u=AUD[norm(t)]||`audios/${t}.m4a`; new Audio(encodeURI(u)).play().catch(()=>new Audio(`audios/${t}.mp3`).play());}
+
+function trad1(){
+ let q=document.getElementById("q1").value.toLowerCase().trim();
+ let d=document.getElementById("r1");
+ if(!q){d.innerHTML="";return;}
+ let f=dic.filter(x=>x.esp.toLowerCase().includes(q));
+ if(!f.length){d.innerHTML="<div class=msg>No encontrado</div>";return;}
+ d.innerHTML=f.map(x=>`<div class=row><div class=tot><button class=audio onclick="play('${x.tot}')">🔊</button> ${x.tot}</div><span>${x.esp}</span></div>`).join("");
+}
+function trad2(){
+ let q=document.getElementById("q2").value.toLowerCase().trim();
+ let d=document.getElementById("r2");
+ if(!q){d.innerHTML="";return;}
+ let f=dic.filter(x=>x.tot.toLowerCase().includes(q));
+ if(!f.length){d.innerHTML="<div class=msg>No encontrado</div>";return;}
+ d.innerHTML=f.map(x=>`<div class=row><div class=tot><button class=audio onclick="play('${x.tot}')">🔊</button> ${x.tot}</div><span>${x.esp}</span></div>`).join("");
+}
+loc();
+</script>
+</body>
+</html>
