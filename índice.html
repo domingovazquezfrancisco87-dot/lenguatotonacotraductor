@@ -31,14 +31,14 @@ textarea{width:100%;padding:12px;font-size:16px;border-radius:10px;border:2px so
 </div>
 
 <div class="box esp">
-<h3 style="text-align:center;color:#1B5E20;margin:0 0 10px">🇲🇽 → 🌽 Español → Totonaco</h3>
-<textarea id="q1" placeholder="Escribe aquí en ESPAÑOL: sol, agua, hola..." oninput="trad1()"></textarea>
+<h3 style="text-align:center;color:#1B5E20;margin:0 0 10px">🇲🇽 → 🌽 Español → Totonaco (1)</h3>
+<textarea id="q1" placeholder="Escribe en ESPAÑOL: sol, agua, hola..." oninput="trad1()"></textarea>
 <div id="r1" class="res"></div>
 </div>
 
 <div class="box">
-<h3 style="text-align:center;color:#7A3E1F;margin:0 0 10px">🌽 → 🇲🇽 Totonaco → Español</h3>
-<textarea id="q2" placeholder="Escribe aquí en TOTONACO: chichineh, chuchut..." oninput="trad2()"></textarea>
+<h3 style="text-align:center;color:#7A3E1F;margin:0 0 10px">🌽 → 🇲🇽 Totonaco → Español (2)</h3>
+<textarea id="q2" placeholder="Escribe en TOTONACO: chichineh, chuchut..." oninput="trad2()"></textarea>
 <div id="r2" class="res"></div>
 </div>
 
@@ -47,21 +47,46 @@ textarea{width:100%;padding:12px;font-size:16px;border-radius:10px;border:2px so
 
 <script>
 const base=[
-{tot:"skalhni",esp:"hola"},{tot:"chuchut",esp:"agua"},{tot:"chichineh",esp:"sol, ardiente"},{tot:"chikeh",esp:"casa"},{tot:"lhkuyath",esp:"fuego"},{tot:"kuh",esp:"corazón"},{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},{tot:"kuxlhanchuh",esp:"pan"},{tot:"puhmalhkuy",esp:"fogón"},{tot:"puksnankakgakg",esp:"pápalo"},{tot:"kgalhtuhchokgoh",esp:"rio"},{tot:"wath",esp:"tamal"},{tot:"xanath",esp:"flor"},{tot:"papah",esp:"luna"},{tot:"kachiken",esp:"pueblo"},{tot:"tlakgtlah",esp:"elote"},{tot:"stlan",esp:"bien"},{tot:"paxkgastsinalh",esp:"gracias"},{tot:"skgalhen",esp:"hola que tal"},{tot:"nanah",esp:"abuela"},{tot:"tatah",esp:"abuelo"},{tot:"tachiwin",esp:"palabra"},{tot:"tutuhnahkuh",esp:"totonaco"},{tot:"lhakgtsohpin",esp:"chile piquin"},{tot:"xukuth",esp:"limón"}
+{tot:"skalhni",esp:"hola"},{tot:"chuchut",esp:"agua"},{tot:"chichineh",esp:"sol, ardiente"},{tot:"chikeh",esp:"casa"},{tot:"lhkuyath",esp:"fuego"},{tot:"kuh",esp:"corazón"},{tot:"chuh",esp:"tortilla"},{tot:"kuxeh",esp:"maíz"},{tot:"kuxlhanchuh",esp:"pan"},{tot:"puhmalhkuy",esp:"fogón"},{tot:"puksnankakgakg",esp:"pápalo"},{tot:"kgalhtuhchokgoh",esp:"rio"},{tot:"wath",esp:"tamal"},{tot:"xanath",esp:"flor"},{tot:"papah",esp:"luna"},{tot:"kachiken",esp:"pueblo"},{tot:"tlakgtlah",esp:"elote"},{tot:"stlan",esp:"bien"},{tot:"paxkgastsinalh",esp:"gracias"},{tot:"skgalhen",esp:"hola que tal"},{tot:"nanah",esp:"abuela"},{tot:"tatah",esp:"abuelo"},{tot:"tachiwin",esp:"palabra"},{tot:"tutuhnahkuh",esp:"totonaco"},{tot:"lhakgtsohpin",esp:"chile piquin"},{tot:"xukuth",esp:"limón"},{tot:"lhkakgnan",esp:"bochorno, hace calor"},{tot:"xtan",esp:"tlacuache"}
 ];
 const dic=[...new Map(base.map(o=>[o.tot.toLowerCase(),o])).values()];
-function norm(t){return t.toLowerCase().replace(/_/g," ").trim();}
+function norm(t){return t.toLowerCase().replace(/_/g," ").trim().replace(/\s+/g," ");}
+
 let AUD={};
+// CORRECCION FALLA API: Lista forzada de tus audios reales (sin depender de GitHub API)
+const AUDIOS_FORZADOS = [
+"Chichineh","Chuchut","Kachiken","Paxkgastsinalh","Skgalhen","Tlakgtlah","Kuh","Chuh","Wath","Kuxlhanchuh","Puhmalhkuy","Puksnankakgakg","Kgalhtuhchokgoh","Xtan","Lhkakgnan","Lhakgtsohpin","Puhmahkgalhtawakgah","Xukuth","Stlan","Makgyawath","Kgan","Taxtihkgeth","Puhtuwelh","Lhitatawalhath","Tahjatath","Xtilhan"
+];
+AUDIOS_FORZADOS.forEach(n=>{ AUD[norm(n)] = `audios/${n}.m4a`; });
+
 async function loc(){
  try{
   const r=await fetch(`https://api.github.com/repos/domingovazquezfrancisco87-dot/lenguatotonacotraductor/contents/audios?t=${Date.now()}`);
-  const j=await r.json();
-  j.filter(a=>/\.(m4a|mp3|wav|ogg)$/i.test(a.name)).forEach(a=>{AUD[norm(a.name.replace(/\.[^/.]+$/,""))]=`audios/${a.name}`;});
-  document.getElementById("est").innerText=`✅ ${Object.keys(AUD).length} audios listos - escribe una palabra para escuchar`;
+  if(r.ok){
+    const j=await r.json();
+    j.filter(a=>/\.(m4a|mp3|wav|ogg)$/i.test(a.name)).forEach(a=>{ AUD[norm(a.name.replace(/\.[^/.]+$/,""))] = `audios/${a.name}`; });
+  }
+  document.getElementById("est").innerText=`✅ ${Object.keys(AUD).length} audios localizados - corrección API activa`;
   document.getElementById("cont").innerText=`${dic.length} palabras + ${Object.keys(AUD).length} audios`;
- }catch(e){document.getElementById("est").innerText="Audios en modo local";}
+ }catch(e){
+  document.getElementById("est").innerText=`✅ ${Object.keys(AUD).length} audios en modo forzado (sin API)`;
+ }
 }
-function play(t){let u=AUD[norm(t)]||`audios/${t}.m4a`; new Audio(encodeURI(u)).play().catch(()=>new Audio(`audios/${t}.mp3`).play());}
+
+// CORRECCION AUDIO: Prueba m4a, luego mp3, con encodeURI para espacios y =
+function play(t){
+ let key=norm(t);
+ let url=AUD[key];
+ if(!url) url=`audios/${t}.m4a`;
+ let a1=new Audio(encodeURI(url));
+ a1.play().catch(()=>{
+   let a2=new Audio(encodeURI(url.replace(".m4a",".mp3")));
+   a2.play().catch(()=>{
+     let a3=new Audio(encodeURI(`audios/${t}.mp3`));
+     a3.play().catch(()=>alert("Audio no encontrado: "+t+". Revisa que exista en /audios como "+t+".m4a"));
+   });
+ });
+}
 
 function trad1(){
  let q=document.getElementById("q1").value.toLowerCase().trim();
@@ -74,6 +99,7 @@ function trad1(){
 function trad2(){
  let q=document.getElementById("q2").value.toLowerCase().trim();
  let d=document.getElementById("r2");
+ if(!d){return;}
  if(!q){d.innerHTML="";return;}
  let f=dic.filter(x=>x.tot.toLowerCase().includes(q));
  if(!f.length){d.innerHTML="<div class=msg>No encontrado</div>";return;}
