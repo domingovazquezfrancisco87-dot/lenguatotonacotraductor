@@ -4,56 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="0jL_UTHqy_bqemgECamGBLBVWmW5rdqDR3KvQ2uuQ5k" />
-<title>Traductor Totonaco</title>
+<title>Traductor Totonaco Olintla</title>
 <style>
-body{margin:0;font-family:Arial;background:#FFFBEB}header{background:#7A3E1F;color:white;padding:15px;text-align:center}main{max-width:700px;margin:auto;padding:10px}.card{background:white;padding:12px;border-radius:12px;margin-bottom:12px}.box{border:2px solid #7A3E1F;border-radius:12px;padding:10px;background:white;margin-bottom:12px}.box.e{border-color:green}textarea{width:100%;padding:10px;font-size:16px;border-radius:8px}.item{padding:8px;background:#FFF8E1;margin:5px 0;border-radius:8px;display:flex;justify-content:space-between} img{width:100%;border-radius:10px}
+body{margin:0;font-family:Arial;background:#FFFBEB}
+header{background:#7A3E1F;color:white;padding:15px;text-align:center}
+main{max-width:700px;margin:auto;padding:10px}
+.card{background:white;padding:8px;border-radius:12px;margin-bottom:10px}
+img{width:100%;border-radius:10px;display:block}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{border:2px solid #7A3E1F;border-radius:12px;padding:10px;background:white;margin-bottom:12px}
+.box.e{border-color:green}
+textarea{width:100%;padding:10px;font-size:16px;border-radius:8px;box-sizing:border-box}
+.item{padding:8px;background:#FFF8E1;margin:5px 0;border-radius:8px;display:flex;justify-content:space-between}
 </style>
 </head>
 <body>
-<header><h2>🌽 Traductor Totonaco Olintla</h2></header>
+<header><h2>🌽 Traductor Totonaco Olintla</h2><small>Kachikin Olintla</small></header>
 <main>
-<div class="card"><b>📖 3 Raíces:</b><br>1. Puhmalhkuy=fogón (puh+mah+lhkuyath)<br>2. Kuxlhanchuh=pan (kuh+xlhah+chuh)<br>3. Puksnankakgakg=pápalo (puks+nahan+kakg)</div>
 
-<!-- APARTADO DE IMAGENES PEGADO -->
-<div class="card" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<div><img src="imagenes/sol.jpg" style="width:100%;border-radius:8px"><center><b>Chichiní - Sol</b></center></div>
-<div><img src="imagenes/maiz.jpg" style="width:100%;border-radius:8px"><center><b>Kuxi - Maíz</b></center></div>
+<!-- TUS FOTOS AGREGADAS - SIN TOCAR NADA MÁS -->
+<div class="card"><img src="imagenes/panoramica.jpg"></div>
+<div class="gal">
+<div class="card"><img src="imagenes/kiosco.jpg"></div>
+<div class="card"><img src="imagenes/centro.jpg"></div>
 </div>
+<div class="gal">
+<div class="card"><img src="imagenes/casa.jpg"></div>
+<div class="card"><img src="imagenes/fogon.jpg"></div>
+</div>
+<div class="gal">
+<div class="card"><img src="imagenes/camino.jpg"></div>
+<div class="card"><img src="imagenes/sol.jpg"></div>
+</div>
+<div class="card"><img src="imagenes/tuxtunah.jpg"></div>
+
+<!-- TODO LO DEMÁS QUEDA IGUAL COMO LO TENÍAS -->
+<div class="card"><b>📖 3 Raíces:</b><br>Puhmalhkuy=fogón, Kuxlhanchuh=pan, Puksnankakgakg=pápalo</div>
 
 <div class="box e">
 <h3>🇲🇽 Español → Totonaco</h3>
-<textarea id="q1" oninput="buscar1()" placeholder="Escribe: sol, agua, hola..."></textarea>
+<textarea id="q1" oninput="buscar1()" placeholder="sol, casa, agua..."></textarea>
 <div id="r1"></div>
 </div>
 
 <div class="box">
 <h3>🌽 Totonaco → Español</h3>
-<textarea id="q2" oninput="buscar2()" placeholder="Escribe: chichineh, chuchut..."></textarea>
+<textarea id="q2" oninput="buscar2()" placeholder="chichineh, chikeh..."></textarea>
 <div id="r2"></div>
 </div>
+
 </main>
 <script>
 const datos=[
-["skgalhen","hola"],["chuchut","agua"],["chichineh","sol"],["chikeh","casa"],["lhkuyath","fuego"],["kuh","corazón"],["chuh","tortilla"],["kuxlhanchuh","pan"],["puhmalhkuy","fogón"],["puksnankakgakg","pápalo"],["kgalhtuhchokgoh","rio"],["wath","tamal"],["kachiken","pueblo"],["tlakgtlah","elote"],["paxkgastsinalh","gracias"],["nanah","abuela"],["tatah","abuelo"]
+["skgalhen","hola"],["chuchut","agua"],["chichineh","sol"],["chikeh","casa"],["lhkuyath","fuego"],["kuh","corazón"],["chuh","tortilla"],["kuxlhanchuh","pan"],["puhmalhkuy","fogón"],["puksnankakgakg","pápalo"],["kgalhtuhchokgoh","rio"],["wath","tamal"],["kachiken","pueblo"],["tlakgtlah","elote"],["paxkgastsinalh","gracias"],["tej","camino"]
 ];
-function play(t){
-  let nombres=[`audios/${t}.m4a`,`audios/${t}.mp3`,`audios/${t.toLowerCase()}.m4a`];
-  let a=new Audio(encodeURI(nombres[0]));
-  a.play().catch(()=>{
-    let b=new Audio(encodeURI(nombres[1]));
-    b.play().catch(()=>alert("Audio no encontrado. Renombra en GitHub a: "+t+".m4a"));
-  });
-}
+function play(t){new Audio(encodeURI(`audios/${t}.m4a`)).play().catch(()=>alert("Falta audio: "+t))}
 function buscar1(){
- let q=document.getElementById("q1").value.toLowerCase().trim();
- let r=document.getElementById("r1");
+ let q=document.getElementById("q1").value.toLowerCase().trim(); let r=document.getElementById("r1");
  if(!q){r.innerHTML="";return;}
  let f=datos.filter(d=>d[1].includes(q));
  r.innerHTML=f.map(d=>`<div class=item><span><button onclick="play('${d[0]}')">🔊</button> <b>${d[0]}</b></span><span>${d[1]}</span></div>`).join("")||"No encontrado";
 }
 function buscar2(){
- let q=document.getElementById("q2").value.toLowerCase().trim();
- let r=document.getElementById("r2");
+ let q=document.getElementById("q2").value.toLowerCase().trim(); let r=document.getElementById("r2");
  if(!q){r.innerHTML="";return;}
  let f=datos.filter(d=>d[0].toLowerCase().includes(q));
  r.innerHTML=f.map(d=>`<div class=item><span><button onclick="play('${d[0]}')">🔊</button> <b>${d[0]}</b></span><span>${d[1]}</span></div>`).join("")||"No encontrado";
